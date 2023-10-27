@@ -1,5 +1,7 @@
 package com.js.lapage.controller;
 
+
+import com.js.lapage.model.SucessResponse;
 import com.js.lapage.model.Usuario;
 import com.js.lapage.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,9 @@ public class UsuarioController {
     UsuarioService usuarioService;
 
     @PostMapping
-    public void cadastro(@RequestBody Usuario usuario) {
+    public SucessResponse cadastro(@RequestBody Usuario usuario) {
         usuarioService.cadastro(usuario);
+        return SucessResponse.create("Usuário Cadastrado");
     }
 
 }
