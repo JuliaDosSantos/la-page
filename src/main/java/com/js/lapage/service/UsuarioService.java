@@ -12,7 +12,11 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
     public void cadastro(Usuario usuario) {
+        validacoes(usuario);
+        usuarioRepository.save(usuario);
+    }
 
+    public void validacoes(Usuario usuario){
         if (usuarioRepository.findByEmail(usuario.getEmail()) != null) {
             throw new ValidationException("Este e-mail já possuí conta cadastrada");
         }
@@ -20,10 +24,6 @@ public class UsuarioService {
         if (usuarioRepository.findByUsername(usuario.getUsername()) != null) {
             throw new ValidationException("Este username já possuí conta cadastrada");
         }
-
-        usuarioRepository.save(usuario);
     }
-
-
 
 }
