@@ -1,10 +1,8 @@
 package com.js.lapage.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Usuario implements Serializable {
@@ -16,6 +14,9 @@ public class Usuario implements Serializable {
     private String username;
     private String email;
     private String password;
+
+    @OneToMany
+    private List<Livro> livros;
 
     public Usuario() {
     }
@@ -54,6 +55,14 @@ public class Usuario implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
     }
 
     public void setPassword(String password) {
