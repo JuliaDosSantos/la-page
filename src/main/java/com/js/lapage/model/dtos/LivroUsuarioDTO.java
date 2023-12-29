@@ -3,7 +3,7 @@ package com.js.lapage.model.dtos;
 import lombok.Data;
 
 @Data
-public class CadastroLivroUsuarioDTO {
+public class LivroUsuarioDTO {
 
     private Integer idLivro;
 

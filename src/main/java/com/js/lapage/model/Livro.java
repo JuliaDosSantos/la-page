@@ -18,6 +18,7 @@ public class Livro {
     private String synopsis;
     private Boolean currentBook;
     private Boolean read;
+    private Integer idUsuario;
 
     public Integer getId() {
         return id;
@@ -73,5 +74,13 @@ public class Livro {
 
     public void setRead(Boolean read) {
         this.read = read;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

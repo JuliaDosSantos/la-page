@@ -3,7 +3,7 @@ package com.js.lapage.service;
 import com.js.lapage.exceptions.ValidationException;
 import com.js.lapage.model.Livro;
 import com.js.lapage.model.Usuario;
-import com.js.lapage.model.dtos.CadastroLivroUsuarioDTO;
+import com.js.lapage.model.dtos.LivroUsuarioDTO;
 import com.js.lapage.repository.LivroRepository;
 import com.js.lapage.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +36,9 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void cadastroLivroUsuario(CadastroLivroUsuarioDTO cadastroLivroUsuarioDTO){
-        Optional<Usuario> usuarioOptional = usuarioRepository.findById(cadastroLivroUsuarioDTO.getIdUsuario());
-        Optional<Livro> livroOptional = livroRepository.findById(cadastroLivroUsuarioDTO.getIdLivro());
+    public void cadastroLivroUsuario(LivroUsuarioDTO livroUsuarioDTO){
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(livroUsuarioDTO.getIdUsuario());
+        Optional<Livro> livroOptional = livroRepository.findById(livroUsuarioDTO.getIdLivro());
         
         if (!usuarioOptional.isPresent()){
             throw new ValidationException("Usuário não encontrado");
@@ -54,5 +54,23 @@ public class UsuarioService {
         usuario.getLivros().add(livro);
         usuarioRepository.save(usuario);
     }
+    @Transactional
+    public void deletarLivroUsuario(LivroUsuarioDTO livroUsuarioDTO){
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(livroUsuarioDTO.getIdUsuario());
+        Optional<Livro> livroOptional = livroRepository.findById(livroUsuarioDTO.getIdLivro());
 
+        if (!usuarioOptional.isPresent()){
+            throw new ValidationException("Usuário não encontrado");
+        }
+
+        if (!livroOptional.isPresent()){
+            throw new ValidationException("Livro não encontrado");
+        }
+
+        Usuario usuario = usuarioOptional.get();
+        Livro livro = livroOptional.get();
+
+        usuario.getLivros().remove(livro);
+        usuarioRepository.save(usuario);
+    }
 }
